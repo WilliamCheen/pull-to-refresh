@@ -494,3 +494,15 @@ open class ESRefreshFooterView: ESRefreshComponent {
     
 }
 
+extension String {
+    class ForLocalization {}
+    var ES_Locale: String {
+        let bundlePaths = Bundle(for: ForLocalization.self).paths(forResourcesOfType: "bundle", inDirectory: nil)
+        guard bundlePaths.count > 0, let resourcePath = bundlePaths.first else {
+            return self
+        }
+        let resourceBundle = Bundle(path: resourcePath)
+        let localizedString = NSLocalizedString(self, tableName: nil, bundle: resourceBundle!, value: "", comment: "")
+        return localizedString
+    }
+}
